@@ -1,0 +1,4 @@
+name: ${pom.name}
+main: com.merikmc.Parkour
+version: ${pom.version}
+description: ${pom.description}
