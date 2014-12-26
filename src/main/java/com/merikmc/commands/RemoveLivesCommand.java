@@ -29,9 +29,9 @@ public class RemoveLivesCommand implements CommandExecutor {
                 if(NumberUtil.isNumber(args[1])) {
                     int number = NumberUtil.parseInteger(args[1]);
                     pt.removeLives(number);
-                    sender.sendMessage(ChatColor.GREEN + "Removed " + number + " lives to player " + args[0] + "!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed " + number + " lives from player " + args[0] + "!");
                 } else {
-                    sender.sendMessage(ChatColor.RED + "" + args[1] + " is not a number. :/");
+                    sender.sendMessage(ChatColor.RED + "" + args[1] + " is not a number.");
                 }
             } else {
                 sender.sendMessage(ChatColor.RED + "Unable to find player " + args[0] + "!");

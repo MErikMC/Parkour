@@ -44,24 +44,12 @@ public class PlayerTracker {
 
     private int lives;
 
-    private Map activeMap;
-
-    private long startTime;
-
-    private long elapsedtime;
-
-    private Checkpoint lastCheckpoint;
-
-    private boolean isParkouring;
+    private PlayerMapTracker mapTracker;
 
     public PlayerTracker(String playerName) {
-        this.name = name;
-        this.lives = computeLives();
-        this.activeMap = null;
-        this.startTime = 0;
-        this.lastCheckpoint = null;
-        this.isParkouring = false;
-        this.elapsedtime = 0;
+        this.name = playerName;
+        this.lives = NumberUtil.getLives(playerName);
+        this.mapTracker = null;
     }
 
     public String getName() {
@@ -84,66 +72,20 @@ public class PlayerTracker {
         return getLives() > 0;
     }
 
-    public Map getActiveMap() {
-        return activeMap;
-    }
-
-    public void setActiveMap(Map activeMap) {
-        this.activeMap = activeMap;
-    }
-
-    public Checkpoint getLastCheckpoint() {
-        return lastCheckpoint;
-    }
-
-    public void setLastCheckpoint(Checkpoint checkpoint) {
-        this.lastCheckpoint = checkpoint;
-    }
-
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getElapsedtime() {
-        return elapsedtime;
-    }
-
     public boolean isParkouring() {
-        return isParkouring;
+        return this.mapTracker != null;
     }
 
-    public String getTimeFormatted() {
-        return new SimpleDateFormat("mm:ss:SSS").format(new Date(elapsedtime)).toString();
+    public void startCourse(Map map) {
+        this.mapTracker = new PlayerMapTracker(map);
     }
 
-    public void startMap(Map map) {
-        setActiveMap(map);
-        setLastCheckpoint(null);
-        this.startTime = System.currentTimeMillis();
-        this.isParkouring = true;
+    public void finishCourse() {
+        this.mapTracker.finishMap();
     }
 
-    public void finishMap() {
-        setActiveMap(null);
-        setLastCheckpoint(null);
-        this.isParkouring = false;
-        this.elapsedtime = System.currentTimeMillis() - startTime;
-    }
-
-    private int computeLives() {
-        Player p = Bukkit.getPlayer(name);
-        if(p != null) {
-            for(PermissionAttachmentInfo pai : p.getEffectivePermissions()) {
-                String permission = pai.getPermission();
-                if(permission.contains("parkour.lives.")) {
-                    String newString = permission.substring(0, permission.lastIndexOf('.'));
-                    if(NumberUtil.isNumber(newString)) {
-                        return NumberUtil.parseInteger(newString);
-                    }
-                }
-            }
-        }
-        return Parkour.DEFAULT_LIVES_PER_DAY;
+    public PlayerMapTracker getMapTracker() {
+        return mapTracker;
     }
 
 }

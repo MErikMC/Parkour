@@ -53,8 +53,14 @@ public class Parkour extends JavaPlugin {
         registerCommands();
     }
 
-    public void onDisable() {
-        saveHighscores();
+    public void onDisable() {}
+
+    public static Parkour getInstance() {
+        return instance;
+    }
+
+    public Config getConfigClass() {
+        return config;
     }
 
     public static Connection getConnection() {
@@ -78,12 +84,6 @@ public class Parkour extends JavaPlugin {
     private void registerCommands() {
         getCommand("addlives").setExecutor(new AddLivesCommand());
         getCommand("removelives").setExecutor(new RemoveLivesCommand());
-    }
-
-    private void saveHighscores() {
-        for(Map m : Map.getMaps()) {
-            MySQLUtil.updateHighscores(m);
-        }
     }
 
     private void loadMaps() {

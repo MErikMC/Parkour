@@ -28,8 +28,8 @@ public class Highscore {
 
     public static boolean compareTo(String timeOne, String timeTwo) {
         try {
-            Date dOne = new SimpleDateFormat("mm:ss:SSS").parse(timeOne);
-            Date dTwo = new SimpleDateFormat("mm:ss:SSS").parse(timeTwo);
+            Date dOne = new SimpleDateFormat("hh:mm:ss").parse(timeOne);
+            Date dTwo = new SimpleDateFormat("hh:mm:ss").parse(timeTwo);
             return dOne.after(dTwo);
         } catch(ParseException e) {
             return false;

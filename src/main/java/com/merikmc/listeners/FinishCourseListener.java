@@ -16,20 +16,9 @@ import org.bukkit.event.Listener;
 public class FinishCourseListener implements Listener {
 
     @EventHandler
-    public void onCompletion(PlayerFinishCourseEvent e) {
+    public void onCompletion(PlayerFinishCourseEvent e) { //if completed course, check if time is in top 5, update trophies, insert if the time is less, addcoins
         if(e.didCompleteCourse()) {
-            int num = e.getMap().getHighscoreTracker().update(new Highscore(e.getPlayer().getName(), e.getTime()));
-            if(num > 0 && num < 6) {
-                Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + e.getPlayer().getName() + " has placed #" + num + " on map " + e.getMap().getName() + "!");
-            } else {
-                e.getPlayer().sendMessage(ChatColor.RED + "You did not place in the top 5 on map " + e.getMap().getName() + ".");
-            }
-            e.getMap().getTrophyTracker().update(e.getMap().getHighscoreTracker());
-            MySQLUtil.updateHighscores(e.getMap());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "addcoins " + e.getPlayer().getName() + " " + Parkour.COINS_FOR_COMPLETION);
-        }
-        if(e.getPlayer() != null) {
-            e.getPlayer().setHealth(0.0); //reset the player at spawn
+            
         }
     }
 

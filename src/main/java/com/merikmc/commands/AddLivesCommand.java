@@ -33,7 +33,7 @@ public class AddLivesCommand implements CommandExecutor {
                     pt.addLives(number);
                     sender.sendMessage(ChatColor.GREEN + "Added " + number + " lives to player " + args[0] + "!");
                 } else {
-                    sender.sendMessage(ChatColor.RED + "" + args[1] + " is not a number. :/");
+                    sender.sendMessage(ChatColor.RED + "" + args[1] + " is not a number.");
                 }
             } else {
                 sender.sendMessage(ChatColor.RED + "Unable to find player " + args[0] + "!");
